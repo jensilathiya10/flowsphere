@@ -1,5 +1,7 @@
 # FlowSphere
 
+[![tests](https://github.com/jensilathiya10/flowsphere/actions/workflows/tests.yml/badge.svg)](https://github.com/jensilathiya10/flowsphere/actions/workflows/tests.yml)
+
 One workspace to plan, build, and deliver projects — a modern SaaS project management platform built with Laravel, inspired by tools like Trello, Asana, and Monday.com.
 
 ## What it does
