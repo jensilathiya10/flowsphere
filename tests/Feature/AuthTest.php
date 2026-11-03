@@ -38,6 +38,18 @@ class AuthTest extends TestCase
         $this->assertGuest();
     }
 
+    public function test_json_registration_returns_validation_errors_as_json(): void
+    {
+        User::factory()->create(['email' => 'taken@example.com']);
+
+        $this->postJson('/register', [
+            'name' => 'Someone',
+            'email' => 'taken@example.com',
+            'password' => 'secret-password',
+            'password_confirmation' => 'secret-password',
+        ])->assertUnprocessable()->assertJsonValidationErrors('email');
+    }
+
     public function test_a_user_can_log_in_with_valid_credentials(): void
     {
         $user = User::factory()->create(['password' => 'secret-password']);
@@ -58,6 +70,18 @@ class AuthTest extends TestCase
             'email' => $user->email,
             'password' => 'wrong-password',
         ])->assertRedirect('/login')->assertSessionHasErrors('email');
+
+        $this->assertGuest();
+    }
+
+    public function test_json_login_with_a_wrong_password_returns_a_422(): void
+    {
+        $user = User::factory()->create(['password' => 'secret-password']);
+
+        $this->postJson('/login', [
+            'email' => $user->email,
+            'password' => 'wrong-password',
+        ])->assertUnprocessable()->assertJsonValidationErrors('email');
 
         $this->assertGuest();
     }
