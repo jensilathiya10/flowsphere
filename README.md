@@ -39,6 +39,14 @@ composer run dev
 
 `composer run dev` runs the Laravel server, queue listener, log watcher, and Vite dev server together. The app is then available at `http://127.0.0.1:8000`.
 
+## Testing
+
+```bash
+php artisan test
+```
+
+Tests run against an in-memory SQLite database (see `phpunit.xml`). The same suite runs on Linux (`ubuntu-latest`) via GitHub Actions on every push to `main` and every pull request — see `.github/workflows/tests.yml`.
+
 ## Project structure
 
 ```
